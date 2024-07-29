@@ -17,6 +17,7 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     status_id: Mapped[int] = mapped_column(ForeignKey('statuses.id'))
+    end_status_date: Mapped[str] = mapped_column()
     requests_today: Mapped[int] = mapped_column()
     time_for_clear_requests: Mapped[str] = mapped_column()
     username: Mapped[str] = mapped_column()
@@ -41,6 +42,17 @@ class Context(Base):
     content: Mapped[str] = mapped_column()
     role: Mapped[str] = mapped_column()
     user_id: Mapped[int] = mapped_column(ForeignKey('users.id'))
+    
+    
+class PromoCode(Base):
+    __tablename__ = 'promocodes'
+    
+    id: Mapped[int] = mapped_column(primary_key=True)
+    link: Mapped[str] = mapped_column()
+    status_id: Mapped[int] = mapped_column()
+    status_duration_in_days: Mapped[int] = mapped_column()
+    number_of_uses: Mapped[int] = mapped_column()
+    usage_count: Mapped[int] = mapped_column()
 
 
 async def async_main():

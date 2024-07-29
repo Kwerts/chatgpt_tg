@@ -1,7 +1,7 @@
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 
-from database.requests import get_user_contexts
+from database.requests import get_user_not_system_contexts
 
 import os
 import httpx
@@ -19,7 +19,7 @@ async def chatgpt_request(request: str, tg_id: int) -> str:
     messages_list = []
 
     
-    for context in await get_user_contexts(tg_id=tg_id):
+    for context in await get_user_not_system_contexts(tg_id=tg_id):
         messages_list.append({"role": context.role, "content": context.content})
     
     messages_list.append({"role": "system", "content": "Your reply messages must contain a maximum of 4000 characters."})
